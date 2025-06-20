@@ -1,0 +1,11 @@
+StudentID,Name,Age,Gender,Attendance,AssignmentScore,MidtermScore,FinalExamScore,StudyHours,Participation,Performance
+S001,Jama Yusuf,14,M,95,88,84,91,10,High,Excellent
+S002,Kasy Fusy,13,F,85,76,79,82,8,Medium,Good
+S003,Samuel Brown,15,M,70,65,61,58,6,Low,Poor
+S004,Mary Johnson,14,F,92,85,88,90,9,High,Excellent
+S005,Michael Lee,13,M,60,58,55,50,5,Low,Poor
+S006,Angela Boateng,15,F,88,82,80,85,7,Medium,Good
+S007,Kwame Nkrumah,14,M,78,70,75,73,6,Medium,Average
+S008,Akua Mensah,13,F,96,90,92,95,10,High,Excellent
+S009,Kojo Antwi,15,M,65,60,59,62,5,Low,Poor
+S010,Esi Owusu,14,F,90,85,84,89,9,High,Good
