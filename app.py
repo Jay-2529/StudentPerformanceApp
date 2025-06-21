@@ -6,13 +6,12 @@ import pickle
 import matplotlib.pyplot as plt
 import firebase_admin
 from firebase_admin import credentials, firestore
-import json
 
-# 🚀 Load ML model
+# Load the model
 with open("student_model.pk", "rb") as f:
     model = pickle.load(f)
 
-# 🔐 Load Firebase credentials from Streamlit secrets
+# Initialize Firebase from Streamlit secrets
 if not firebase_admin._apps:
     firebase_dict = {
         "type": st.secrets["FIREBASE"]["type"],
@@ -25,7 +24,7 @@ if not firebase_admin._apps:
         "token_uri": st.secrets["FIREBASE"]["token_uri"],
         "auth_provider_x509_cert_url": st.secrets["FIREBASE"]["auth_provider_x509_cert_url"],
         "client_x509_cert_url": st.secrets["FIREBASE"]["client_x509_cert_url"],
-        "universe_domain": st.secrets["FIREBASE"]["universe_domain"],
+        "universe_domain": st.secrets["FIREBASE"]["universe_domain"]
     }
 
     cred = credentials.Certificate(firebase_dict)
@@ -33,10 +32,10 @@ if not firebase_admin._apps:
 
 db = firestore.client()
 
-# 🎓 Title
+# Title
 st.title("🎓 Student Performance Prediction")
 
-# 📥 Input form
+# Inputs
 st.subheader("📋 Enter Student Details")
 attendance = st.slider("Attendance (%)", 0, 100, 85)
 assignment = st.slider("Assignment Score", 0, 100, 75)
@@ -45,7 +44,7 @@ final_exam = st.slider("Final Exam Score", 0, 100, 80)
 study_hours = st.slider("Study Hours per Week", 0, 20, 8)
 participation = st.selectbox("Participation Level", ["Low", "Medium", "High"])
 
-# 🎯 Prediction
+# Prediction
 participation_map = {"Low": 0, "Medium": 1, "High": 2}
 input_data = np.array([[attendance, assignment, midterm, final_exam, study_hours, participation_map[participation]]])
 prediction = model.predict(input_data)[0]
@@ -54,7 +53,7 @@ result = performance_map.get(prediction, "Unknown")
 
 st.success(f"🎯 Predicted Performance: **{result}**")
 
-# ☁️ Save to Firebase
+# Save to Firebase
 if st.button("📤 Save to Firebase"):
     db.collection("predictions").add({
         "Attendance": attendance,
@@ -67,9 +66,8 @@ if st.button("📤 Save to Firebase"):
     })
     st.info("✅ Saved to Firebase.")
 
-# 📊 Sample Visualizations
+# Sample Data Visuals
 st.subheader("📊 Sample Data Insights")
-
 try:
     df = pd.read_csv("student_data.csv")
 
@@ -81,5 +79,5 @@ try:
         df['Participation'].value_counts().plot.pie(autopct='%1.1f%%', ax=ax)
         ax.set_ylabel("")
         st.pyplot(fig)
-except Exception as e:
-    st.error("📛 Could not load or display `student_data.csv`. Please check the file.")
+except:
+    st.warning("📁 `student_data.csv` not found. Upload or place the file in the root directory.")
