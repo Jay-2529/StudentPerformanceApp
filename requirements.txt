@@ -1,9 +1,7 @@
 streamlit
 pandas
-numpy
-scikit-learn==1.0.2
-matplotlib
-seaborn
+scikit-learn
 firebase-admin
-joblib
+matplotlib
+
 
