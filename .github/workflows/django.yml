@@ -27,5 +27,6 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test
-        working-directory:./StudentPerformaceApp
+        python admin_app.py test
+        working-directory:./StudentPerformaceApp/admin_app.py
+        
