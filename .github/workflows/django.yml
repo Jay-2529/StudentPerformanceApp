@@ -28,5 +28,5 @@ jobs:
     - name: Run Tests
       run: |
         python admin_app.py test
-        working-directory:./StudentPerformaceApp/admin_app.py
+        working-directory:./StudentPerformaceApp
         
